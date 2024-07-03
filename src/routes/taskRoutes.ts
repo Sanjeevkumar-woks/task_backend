@@ -5,6 +5,6 @@ export const taskApis = Router();
 
 taskApis.post("/createTask", asyncFunction(TaskController.createTask));
 
-taskApis.get("/", (req, res) => {
-  res.send("hello sanjeevkumar");
-});
+taskApis.get("/getTasks", asyncFunction(TaskController.getTasks));
+
+taskApis.delete("/deleteTask", asyncFunction(TaskController.bulkDeletedTasks));

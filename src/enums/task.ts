@@ -3,3 +3,10 @@ export enum TaskPriorityEnum {
   Medium = "Medium",
   High = "High",
 }
+
+export enum TaskStatusEnum {
+  Todo = "Todo",
+  InProgress = "InProgress",
+  Done = "Done",
+  Freezed = "Freezed",
+}

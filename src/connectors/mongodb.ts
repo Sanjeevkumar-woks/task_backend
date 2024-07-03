@@ -13,7 +13,6 @@ export const connect = async () => {
   }
 
   const mongoUrl = `mongodb+srv://${username}:${password}@${host}/${dbName}`;
-  console.log(`connecting to MongoDb: ${host}`);
 
   await mongoose.connect(mongoUrl, {
     readPreference: "primary",

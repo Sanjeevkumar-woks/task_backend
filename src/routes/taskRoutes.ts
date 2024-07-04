@@ -7,4 +7,6 @@ taskApis.post("/createTask", asyncFunction(TaskController.createTask));
 
 taskApis.get("/getTasks", asyncFunction(TaskController.getTasks));
 
+taskApis.put("/updateTask", asyncFunction(TaskController.updateTask));
+
 taskApis.delete("/deleteTask", asyncFunction(TaskController.bulkDeletedTasks));

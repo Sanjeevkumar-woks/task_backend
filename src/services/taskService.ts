@@ -69,36 +69,51 @@ export default class TaskService {
     };
   }
 
-  //  static async updateTask(payload:{
-  //   taskId: string;
-  //   title: string;
-  //   assignedTo?: string;
-  //   dueDate?: Date;
-  //   status?: TaskStatusEnum;
-  //   companyId: string;
-  //   userId: string;
-  //   priority?: TaskPriorityEnum;
-  //   reminderStartDate?: Date;
-  //  }){
-  //   const {
-  //     taskId,
-  //     title,
-  //     assignedTo,
-  //     dueDate,
-  //     status,
-  //     companyId,
-  //     userId,
-  //     priority,
-  //     reminderStartDate
-  //   } = payload;
+  static async updateTask(payload: {
+    taskId: string;
+    title: string;
+    assignedTo?: string;
+    dueDate?: Date;
+    status?: TaskStatusEnum;
+    companyId: string;
+    userId: string;
+    priority?: TaskPriorityEnum;
+    reminderStartDate?: Date;
+  }) {
+    const {
+      taskId,
+      title,
+      assignedTo,
+      dueDate,
+      status,
+      companyId,
+      userId,
+      priority,
+      reminderStartDate,
+    } = payload;
 
-  //   const task = await TaskModel.findOne({ _id: taskId, companyId });
+    const task = await TaskModel.findOne({ _id: taskId, companyId });
 
-  //   if (!task) {
-  //     throw new createHttpError.NotFound('Task not found');
-  //   }
+    if (!task) {
+      throw new createHttpError.NotFound("Task not found");
+    }
 
-  //  }
+    const response = await TaskModel.updateOne(
+      {
+        _id: taskId,
+        companyId,
+      },
+      {
+        title,
+        assignedTo,
+        dueDate,
+        status,
+        priority,
+        reminderStartDate,
+      }
+    );
+    return response;
+  }
 
   static async bulkDeleteTasks(payload: {
     taskIds: string[];

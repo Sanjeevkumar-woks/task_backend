@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { required } from "joi";
+import { TaskStatusEnum } from "../enums/task";
 
 enum TaskPriorityEnum {
   LOW = "Low",
@@ -9,12 +9,13 @@ enum TaskPriorityEnum {
 
 interface ITask {
   title: string;
-  createdBy: string;
-  assignedTo?: string;
+  createdBy: mongoose.Schema.Types.ObjectId | string;
+  assignedTo?: mongoose.Schema.Types.ObjectId | string;
   dueDate?: Date;
-  projectId: string;
+  companyId: mongoose.Schema.Types.ObjectId | string;
   userId: string;
   priority?: TaskPriorityEnum;
+  status: TaskStatusEnum;
   reminderStartDate?: Date;
 }
 
@@ -27,7 +28,7 @@ export const taskSchema = new mongoose.Schema<ITaskDocument>(
       required: true,
     },
     createdBy: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
     assignedTo: {
@@ -38,7 +39,7 @@ export const taskSchema = new mongoose.Schema<ITaskDocument>(
       type: Date,
       required: false,
     },
-    projectId: {
+    companyId: {
       type: String,
       required: true,
     },
@@ -54,6 +55,11 @@ export const taskSchema = new mongoose.Schema<ITaskDocument>(
     reminderStartDate: {
       type: Date,
       required: false,
+    },
+    status: {
+      type: String,
+      enum: Object.values(TaskStatusEnum),
+      default: TaskStatusEnum.Todo,
     },
   },
   {

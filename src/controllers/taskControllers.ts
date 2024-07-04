@@ -10,7 +10,6 @@ export default class TaskController {
     console.log(req.body);
     validateJoiSchema({
       schema: Joi.object({
-        companyId: Joi.string().optional().allow(""),
         title: Joi.string().required(),
         assignedTo: Joi.string().optional().allow(null),
         dueDate: Joi.date().optional().allow(null),
@@ -28,11 +27,11 @@ export default class TaskController {
     });
     await TaskService.createTask({
       title: req.body.title,
-      createdBy: req.body?.userId as string,
+      createdBy: "6672e401c35ea69e47f59641" as string,
       assignedTo: req.body.assignedTo,
       dueDate: req.body.dueDate,
-      companyId: req.body.companyId as string,
-      userId: req.body?.userId as string,
+      companyId: "6672e401c35ea69e47f59641" as string,
+      userId: "6672e401c35ea69e47f59641" as string,
       priority: req.body.priority,
       reminderStartDate: req.body.reminderStartDate,
     });
@@ -59,14 +58,15 @@ export default class TaskController {
       size: Number(req.query.size),
       filters: req.query.filters as any,
       searchKeyword: req.query.searchKeyword as string,
-      companyId: req.query?.companyId as string,
-      userId: req.query?.userId as string,
+      companyId: "6672e401c35ea69e47f59641" as string,
+      userId: "6672e401c35ea69e47f59641" as string,
     });
 
     res.send(data);
   }
 
   static async updateTask(req: Request, res: Response) {
+    console.log(req.body);
     validateJoiSchema({
       schema: Joi.object({
         taskId: Joi.string().required(),
@@ -94,24 +94,24 @@ export default class TaskController {
       data: req.body,
     });
 
-    // await TaskService.updateTask({
-    //   taskId: req.body.taskId,
-    //   title: req.body.title,
-    //   assignedTo: req.body.assignedTo,
-    //   dueDate: req.body.dueDate,
-    //   carbonModuleData: req.body.carbonModuleData,
-    //   status: req.body.status,
-    //   companyId: req.body.user?.companyId as string,
-    //   userId: req.body.user?.userId as string,
-    //   priority: req.body.priority,
-    //   reminderStartDate: req.body.reminderStartDate,
-    // });
+    await TaskService.updateTask({
+      taskId: req.body.taskId,
+      title: req.body.title,
+      assignedTo: "6672e401c35ea69e47f59641",
+      dueDate: req.body.dueDate,
+      status: req.body.status,
+      companyId: "6672e401c35ea69e47f59641" as string,
+      userId: "6672e401c35ea69e47f59641" as string,
+      priority: req.body.priority,
+      reminderStartDate: req.body.reminderStartDate,
+    });
 
     res.send({ message: "Task updated successfully" });
   }
 
   static async bulkDeletedTasks(req: Request, res: Response) {
     const { taskIds } = req.query;
+    console.log(taskIds);
     const companyId = req.query.companyId as string;
 
     validateJoiSchema({
